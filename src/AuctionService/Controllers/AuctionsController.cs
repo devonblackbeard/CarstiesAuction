@@ -31,15 +31,8 @@ public class AuctionsController : ControllerBase
         var query = _context.Auctions.OrderBy(x => x.Item.Make).AsQueryable();
         if (!string.IsNullOrEmpty(date))
         {
-            query = query.Where(x=> x.UpdatedAt.CompareTo(DateTime.Parse(date).ToUniversalTime()) > 0);
+            query = query.Where(x => x.UpdatedAt.CompareTo(DateTime.Parse(date).ToUniversalTime()) > 0);
         }
-
-        // var auctions = await _context.Auctions
-        //     .Include(x => x.Item)
-        //     .OrderBy(x =>x.Item.Make)
-        //     .ToListAsync();
-
-        // return _mapper.Map<List<AuctionDto>>(auctions);
 
         return await query.ProjectTo<AuctionDto>(_mapper.ConfigurationProvider).ToListAsync();
     }
@@ -64,10 +57,12 @@ public class AuctionsController : ControllerBase
         auction.Seller = "test";
 
         _context.Auctions.Add(auction);
-        var result = await _context.SaveChangesAsync() > 0;
-
         var newAuction = _mapper.Map<AuctionDto>(auction);
+
+        // if rabbit mq (service bus) is down, this will fail. Mass transit has retry functionality build in
         await _publishEndpoint.Publish(_mapper.Map<AuctionCreated>(newAuction));
+
+        var result = await _context.SaveChangesAsync() > 0;       
         
         if(!result) return BadRequest("Could not save changes to the DB");
         else return CreatedAtAction(nameof(GetAuctionById), new {auction.Id}, _mapper.Map<AuctionDto>(auction));

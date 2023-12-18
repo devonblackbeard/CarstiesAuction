@@ -6,7 +6,7 @@ namespace AuctionService;
 
 public class DbInitializer
 {
-    public static void InitDb(WebApplication app) 
+    public static void InitDb(WebApplication app)
     {
         using var scope = app.Services.CreateScope();
 
@@ -17,13 +17,14 @@ public class DbInitializer
     {
         auctionDbContext.Database.Migrate();
 
-        if(auctionDbContext.Auctions.Any()){
+        if (auctionDbContext.Auctions.Any())
+        {
             Console.WriteLine("Already have data, seeding aborted");
             return;
         }
 
         var auctions = new List<Auction>(){
-            	    // 1 Ford GT
+            // 1 Ford GT
             new Auction
             {
                 Id = Guid.Parse("afbee524-5972-4075-8800-7d1f9d7b0a0c"),
