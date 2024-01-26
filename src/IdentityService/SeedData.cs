@@ -26,8 +26,8 @@ public class SeedData
             alice = new ApplicationUser
             {
                 UserName = "alice",
-                Email = "AliceSmith@email.com",
-                EmailConfirmed = true,
+                Email = "alicesmith@email.com",
+                EmailConfirmed = true, //TODO: implement email confirmation
             };
             var result = userMgr.CreateAsync(alice, "Pass123$").Result;
             if (!result.Succeeded)
@@ -55,7 +55,7 @@ public class SeedData
             bob = new ApplicationUser
             {
                 UserName = "bob",
-                Email = "BobSmith@email.com",
+                Email = "bobsmith@email.com",
                 EmailConfirmed = true
             };
             var result = userMgr.CreateAsync(bob, "Pass123$").Result;

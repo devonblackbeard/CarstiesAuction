@@ -17,7 +17,7 @@ internal static class HostingExtensions
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddEntityFrameworkStores<ApplicationDbContext>() // creates tables in our db
             .AddDefaultTokenProviders();
 
         builder.Services
