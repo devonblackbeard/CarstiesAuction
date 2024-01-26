@@ -16,7 +16,7 @@ namespace IdentityService.Pages.Register
 
         public Index(UserManager<ApplicationUser> userManager)
         {
-            _userManager = userManager;            
+            _userManager = userManager;
         }
 
         [BindProperty]
