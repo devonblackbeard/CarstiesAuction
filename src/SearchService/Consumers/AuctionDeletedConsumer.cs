@@ -4,7 +4,7 @@ using MongoDB.Entities;
 
 namespace SearchService;
 
-public class AuctionDeletedConsumer
+public class AuctionDeletedConsumer : IConsumer<AuctionDeleted>
 {
     public async Task Consume(ConsumeContext<AuctionDeleted> context)
     {
