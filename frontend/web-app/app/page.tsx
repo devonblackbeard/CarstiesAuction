@@ -1,9 +1,9 @@
-import Navbar from "./nav/Navbar"
+import Listings from "./auctions/Listings";
 
 export default function Home() {
   return (
     <div>
-      <h3 className="text-3xl font-semibold">Welcome to Carsties!</h3>
+      <Listings />
     </div>
   );
 }
