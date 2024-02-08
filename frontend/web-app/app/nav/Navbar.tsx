@@ -8,8 +8,6 @@ import UserActions from './UserActions'
 const Navbar = async () => {
 
   const user = await getCurrentUser()
-  //console.log(`UserINFO:  ${user}`);
-  
 
   return (
     <header className='sticky top-0 z-50 flex justify-between bg-white p-5 text-gray-800 shadow-md'>
@@ -17,7 +15,7 @@ const Navbar = async () => {
       <Search />
 
       {user ? (
-        <UserActions />
+        <UserActions user={user} />
       ) : (
         <LoginButton />
       )
