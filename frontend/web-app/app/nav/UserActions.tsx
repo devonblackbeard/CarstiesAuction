@@ -5,7 +5,7 @@ import { User } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
-import { AiFillTrophy, AiOutlineLogout } from 'react-icons/ai'
+import { AiFillCar, AiFillTrophy, AiOutlineLogout } from 'react-icons/ai'
 import { HiCog, HiUser } from 'react-icons/hi2'
 
 type Props = {
@@ -27,6 +27,12 @@ const UserActions = ({ user }: Props) => {
             <Dropdown.Item icon={AiFillTrophy}>
                 <Link href='/'>
                     Auctions won
+                </Link>
+            </Dropdown.Item>
+
+            <Dropdown.Item icon={AiFillCar}>
+                <Link href='/auctions/create'>
+                    Sell my car
                 </Link>
             </Dropdown.Item>
 

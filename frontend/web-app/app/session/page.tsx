@@ -23,12 +23,11 @@ const session = async () => {
                 <AuthTest />
             </div>
 
-
             <div className="bg-blue-200 border-2 border-blue-500 mt-4">
                 <h3 className="text-lg">Token data</h3>
                 <pre className='overflow-auto'>{JSON.stringify(token, null, 2)}</pre>
-
             </div>
+
         </div>
     )
 }
