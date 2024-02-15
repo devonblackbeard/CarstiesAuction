@@ -10,12 +10,10 @@ export default function AuthTest() {
 
     function doUpdate() {
         setResult(undefined);
-        setLoading(true);
-                      
+        setLoading(true);                      
         updateAuctionTest()
             .then(res => setResult(res))
-            .finally(() => setLoading(false))
-            
+            .finally(() => setLoading(false))            
     }
 
     return (
