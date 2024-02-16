@@ -7,6 +7,7 @@ import Input from '../components/Input'
 import DateInput from '../components/DateInput'
 import { createAuction } from '../actions/auctionActions'
 import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 
 
 const AuctionForm = () => {
@@ -22,18 +23,14 @@ const AuctionForm = () => {
     }, [setFocus])
 
     const onSubmit = async (data: FieldValues) => {
-        try {
-            console.log('data ', data);
-            
-            const res = await createAuction(data)
-            console.log('res', res);
-            
+        try {            
+            const res = await createAuction(data)            
             if (res.error) {
-                throw new Error(res.error)
+                throw res.error
             }
             router.push(`/auctions/details/${res.id}`)
-        } catch (error) {
-            console.log(error)
+        } catch (error: any) {
+            toast.error(error.status + ' ' + error.message)
         }
     }
 
@@ -50,6 +47,7 @@ const AuctionForm = () => {
                 <Input label='Mileage' name='mileage' control={control} type='number' rules={{ required: 'Mileage is required' }} />
             </div>
 
+            {/* TODO: Change this to an image upload, not a url of an image */}
             <Input label='ImageURL' name='imageUrl' control={control} rules={{ required: 'Image URL is required' }} />
 
             <div className="grid grid-cols-2 gap-3">

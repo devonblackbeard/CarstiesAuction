@@ -17,7 +17,8 @@
     "react-countdown": "^2.3.5",
     "react-datepicker": "^6.1.0",
     "react-dom": "^18",
-    "react-hook-form": "^7.50.1"
+    "react-hook-form": "^7.50.1",
+    "react-hot-toast": "^2.4.1"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",

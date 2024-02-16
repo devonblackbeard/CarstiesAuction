@@ -32,7 +32,6 @@ const put = async (url: string, body: {}) => {
     return await handleResponse(response)
 }
 
-
 const del = async (url: string) => {
     const requestOptions = {
         method: 'DELETE',
