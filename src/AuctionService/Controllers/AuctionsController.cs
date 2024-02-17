@@ -54,8 +54,9 @@ public class AuctionsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<AuctionDto>> CreateAuction(CreateAuctionDto auctionDto)
     {
+        // TODO: implement image uploader instead of url of image. Use this image for now:
+        // https://media.istockphoto.com/id/1458966503/photo/heavy-duty-dark-blue-classic-stylish-big-rig-semi-truck-tractor-with-lot-of-chrome.jpg?s=1024x1024&w=is&k=20&c=Al097bz0uVfWbD-rNfok2tIQM_7kELtIVaV0lk0W9rw=
         var auction = _mapper.Map<Auction>(auctionDto);
-        // TODO: add current user as seller
         auction.Seller = User.Identity.Name;
 
         _context.Auctions.Add(auction);
@@ -67,7 +68,7 @@ public class AuctionsController : ControllerBase
         var result = await _context.SaveChangesAsync() > 0;
 
         if (!result) return BadRequest("Could not save changes to the DB");
-        else return CreatedAtAction(nameof(GetAuctionById), new { auction.Id }, _mapper.Map<AuctionDto>(auction));
+        else return CreatedAtAction(nameof(GetAuctionById), new { auction.Id }, newAuction);
     }
 
     [Authorize]
