@@ -9,9 +9,11 @@ type Props = {
 }
 
 const AuctionCard = ({auction}: Props) => {
+  console.log('auction', auction);
+  
 
   return (
-    <Link href={`/auctions/details/${auction.id}}`} className='group'>
+    <Link href={`/auctions/details/${auction.id}`} className='group'>
       <div className="w-full bg-gray-200 aspect-w-16 aspect-h-10 rounded-lg overflow-hidden">
         <div>
           <CarImage imageUrl={auction.imageUrl}/>         
