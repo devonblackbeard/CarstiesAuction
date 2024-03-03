@@ -1,12 +1,10 @@
 using AuctionService;
 using AuctionService.Data;
-using AuctionService.Entities;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AuctionDbContext>(opt => {
