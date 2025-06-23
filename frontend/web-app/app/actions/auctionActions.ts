@@ -17,7 +17,6 @@ export const updateAuctionTest = async () => {
 }
 
 export const createAuction = async (data: FieldValues) => {
-    console.log('in create auction', data);
     return await fetchWrapper.post('auctions', data)
 }
 

@@ -8,9 +8,7 @@ type Props = {
   auction: Auction
 }
 
-const AuctionCard = ({auction}: Props) => {
-  console.log('auction', auction);
-  
+const AuctionCard = ({auction}: Props) => { 
 
   return (
     <Link href={`/auctions/details/${auction.id}`} className='group'>

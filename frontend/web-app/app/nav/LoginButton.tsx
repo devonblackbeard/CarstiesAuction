@@ -6,7 +6,7 @@ import React from 'react'
 
 const LoginButton = () => {
   return (
-    <Button onClick={() => signIn('id-server', { callbackUrl: '/'})}>
+    <Button onClick={() => signIn('id-server', { callbackUrl: '/'}, { prompt: 'login'} )}>
         Login
     </Button>
   )

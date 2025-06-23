@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "../api/auth/[...nextauth]/route"
-import {cookies, headers} from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { NextApiRequest } from "next"
 import { getToken } from "next-auth/jwt"
 
@@ -12,6 +12,8 @@ export const getCurrentUser = async () => {
     try {
         const session = await getSession()        
         if(!session) return null
+
+        console.log('session', session)
 
         return session.user
     } catch (error) {

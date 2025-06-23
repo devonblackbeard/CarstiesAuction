@@ -12,6 +12,9 @@ public class SearchController : ControllerBase
     {
         var query = DB.PagedSearch<Item, Item>();
 
+        Console.WriteLine("$$$ IN SEARCH");
+
+
         if (!string.IsNullOrEmpty(searchParams.SearchTerm))
         {
             query.Match(Search.Full, searchParams.SearchTerm).SortByTextScore();
@@ -35,9 +38,10 @@ public class SearchController : ControllerBase
         {
             query.Match(x => x.Seller == searchParams.Seller);
         }
+
         if (!string.IsNullOrEmpty(searchParams.Winner))
         {
-            query.Match(x => x.Seller == searchParams.Winner);
+            query.Match(x => x.Winner == searchParams.Winner);
         }
 
         query.PageNumber(searchParams.PageNumber);
