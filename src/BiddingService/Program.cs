@@ -7,8 +7,9 @@ using MongoDB.Entities;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddControllers();
+
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
@@ -16,7 +17,6 @@ builder.Services.AddMassTransit(x =>
 
     x.UsingRabbitMq((context, cfg) =>
     {
-
         cfg.Host(builder.Configuration["RabbitMq:Host"], "/", host =>
         {
             host.Username(builder.Configuration.GetValue("RabbitMq:Username", "guest"));
@@ -26,28 +26,26 @@ builder.Services.AddMassTransit(x =>
         cfg.ConfigureEndpoints(context);
     });
 });
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.Authority = builder.Configuration["IdentityServiceUrl"];
-        options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters.ValidateAudience = false;
-        options.TokenValidationParameters.NameClaimType = "username";
-    });
 
-// builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-// builder.Services.AddHostedService<CheckAuctionFinished>();
-// builder.Services.AddScoped<GrpcAuctionClient>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
+{
+    options.Authority = builder.Configuration["IdentityServiceUrl"];
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters.ValidateAudience = false;
+    options.TokenValidationParameters.NameClaimType = "username";
+});
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-await DB.InitAsync("BidDb", MongoClientSettings
-.FromConnectionString(builder.Configuration.GetConnectionString("BidDbConnection")));
+await DB.InitAsync("BidDb", MongoClientSettings.FromConnectionString(builder.Configuration.GetConnectionString("BidDbConnection")));
+
 
 app.Run();
+
