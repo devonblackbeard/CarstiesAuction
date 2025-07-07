@@ -8,8 +8,14 @@ public class BidPlacedConsumer : IConsumer<BidPlaced>
 {
     public async Task Consume(ConsumeContext<BidPlaced> context)
     {
-        Console.WriteLine("--> Consuming bid placed");
+        Console.WriteLine("--> Consuming bid placed (search svc)");
 
+        // Convert the AuctionId from string to Guid
+        //if (!Guid.TryParse(context.Message.AuctionId, out var auctionId))
+        //{
+        //    Console.WriteLine("Invalid AuctionId format.");
+        //    return;
+        //}
         var auction = await DB.Find<Item>().OneAsync(context.Message.AuctionId);
 
         if (context.Message.BidStatus.Contains("Accepted") 

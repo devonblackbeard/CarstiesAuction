@@ -15,12 +15,21 @@ public class BidPlacedConsumer : IConsumer<BidPlaced>
 
     public async Task Consume(ConsumeContext<BidPlaced> context)
     {
-        Console.WriteLine("---> Consuming bid placed");
+        Console.WriteLine("---> Consuming bid placed (auth service)");
 
-        var auction = await _dbContext.Auctions.FindAsync(context.Message.AuctionId);
+        // Convert the AuctionId from string to Guid
+        if (!Guid.TryParse(context.Message.AuctionId, out var auctionId))
+        {
+            Console.WriteLine("Invalid AuctionId format.");
+            return;
+        }
 
-        if (auction.CurrentHighBid == null 
-            || context.Message.BidStatus.Contains("Accepted") 
+        Console.WriteLine("---> Auction Id : " + auctionId);
+
+        var auction = await _dbContext.Auctions.FindAsync(auctionId);
+
+        if (auction.CurrentHighBid == null
+            || context.Message.BidStatus.Contains("Accepted")
             && context.Message.Amount > auction.CurrentHighBid)
         {
             auction.CurrentHighBid = context.Message.Amount;
