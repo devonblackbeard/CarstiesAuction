@@ -6,6 +6,7 @@ EXPOSE 80
 
 COPY Auctioneering.sln Auctioneering.sln
 COPY src/BiddingService/BiddingService.csproj src/BiddingService/BiddingService.csproj
+COPY src/NotificationService/NotificationService.csproj src/NotificationService/NotificationService.csproj
 COPY src/AuctionService/AuctionService.csproj src/AuctionService/AuctionService.csproj
 COPY src/SearchService/SearchService.csproj src/SearchService/SearchService.csproj
 COPY src/GatewayService/GatewayService.csproj src/GatewayService/GatewayService.csproj
