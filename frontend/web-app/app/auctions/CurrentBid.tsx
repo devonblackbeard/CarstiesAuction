@@ -6,7 +6,6 @@ type Props = {
 };
 
 export default function CurrentBid({ amount, reservePrice }: Props) {
-  //console.log(amount);
   const text = amount ? "$" + amount : "No bids";
   const color = amount
     ? amount > reservePrice

@@ -13,11 +13,8 @@ export const getCurrentUser = async () => {
         const session = await getSession()        
         if(!session) return null
 
-        console.log('session', session)
-
         return session.user
     } catch (error) {
-        console.log('error getting session')
         return null              
     }
 }
