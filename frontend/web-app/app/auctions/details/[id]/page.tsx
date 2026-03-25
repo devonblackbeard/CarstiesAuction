@@ -11,6 +11,7 @@ import { getCurrentUser } from "@/app/actions/authActions";
 import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
 import BidItem from "./BidItem";
+import BidList from "./BidList";
 
 const Details = async ({ params }: { params: { id: string } }) => {
   const data = await getDetailedViewData(params.id);
@@ -40,12 +41,7 @@ const Details = async ({ params }: { params: { id: string } }) => {
           <CarImage imageUrl={data.imageUrl} />
         </div>
 
-        <div className="border-2 rounded-lg p-2 bg-gray-100">
-          <Heading title="Bids" />
-          {bids.map((bid) => (
-            <BidItem bid={bid} key={bid.id} />
-          ))}
-        </div>
+        <BidList user={user} auction={data} />
       </div>
 
       <div className="mt-3 grid grid-cols-1 rounded-lg">

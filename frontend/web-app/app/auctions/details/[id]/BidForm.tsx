@@ -20,6 +20,7 @@ export default function BidForm({ auctionId, highBid }: Props) {
     formState: { errors },
   } = useForm();
   const addBid = useBidStore((state) => state.addBid);
+  
 
   function onSubmit(data: FieldValues) {
     if (data.amount <= highBid) {
