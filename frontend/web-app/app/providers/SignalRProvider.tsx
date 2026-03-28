@@ -21,9 +21,10 @@ export default function SignalRProvider({ children, user }: Props) {
   const setCurrentPrice = useAuctionStore((state) => state.setCurrentPrice);
   const addBid = useBidStore((state) => state.addBid);
   const apiUrl =
-    process.env.NODE_ENV === "production"
-      ? "https://api.carsties.store/notifications"
-      : process.env.NEXT_PUBLIC_NOTIFY_URL;
+    // process.env.NODE_ENV === "production"
+    //   ? "https://api.carsties.store/notifications"
+    //:
+    process.env.NEXT_PUBLIC_NOTIFY_URL;
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
@@ -35,6 +36,7 @@ export default function SignalRProvider({ children, user }: Props) {
   }, [apiUrl]);
 
   useEffect(() => {
+    console.log("in UE!");
     if (connection) {
       connection
         .start()
