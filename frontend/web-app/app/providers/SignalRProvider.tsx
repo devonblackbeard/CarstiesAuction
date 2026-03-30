@@ -36,7 +36,6 @@ export default function SignalRProvider({ children, user }: Props) {
   }, [apiUrl]);
 
   useEffect(() => {
-    console.log("in UE!");
     if (connection) {
       connection
         .start()

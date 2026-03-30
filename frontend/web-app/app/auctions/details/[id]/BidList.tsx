@@ -25,6 +25,7 @@ export default function BidList({ user, auction }: Props) {
   const setOpen = useBidStore((state) => state.setOpen);
   const openForBids = new Date(auction.auctionEnd) > new Date();
 
+
   const highBid = bids.reduce(
     (prev, current) =>
       prev > current.amount

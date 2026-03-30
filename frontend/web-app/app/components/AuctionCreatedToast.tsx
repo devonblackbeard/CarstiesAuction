@@ -16,7 +16,7 @@ export default function AuctionCreatedToast({ auction }: Props) {
       <div className="flex flex-row items-center gap-2">
         <Image
           src={auction.imageUrl}
-          alt="image"
+          alt="Image of a car"
           height={80}
           width={80}
           className="rounded-lg w-auto h-auto"

@@ -16,7 +16,7 @@ type Props = {
   user: User;
 };
 
-export default function RootLayout({ children, user }: Props) {
+export default async function RootLayout({ children, user }: Props) {
   return (
     <html lang="en">
       <body>
