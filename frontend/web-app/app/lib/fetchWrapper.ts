@@ -1,62 +1,52 @@
-import { getTokenWorkaround } from "@/app/actions/authActions";
+import { auth } from "@/auth";
 
 const baseUrl = process.env.API_URL;
 
-const get = async (url: string) => {
+async function get(url: string) {
   const requestOptions = {
     method: "GET",
     headers: await getHeaders(),
   };
-
   const response = await fetch(baseUrl + url, requestOptions);
-  return await handleResponse(response);
-};
+  return handleResponse(response);
+}
 
-const post = async (url: string, body: {}) => {
-  const requestOptions = {
-    method: "POST",
-    headers: await getHeaders(),
-    body: JSON.stringify(body),
-  };
-  const response = await fetch(baseUrl + url, requestOptions);
-  return await handleResponse(response);
-};
-
-const put = async (url: string, body: {}) => {
+async function put(url: string, body: unknown) {
   const requestOptions = {
     method: "PUT",
     headers: await getHeaders(),
     body: JSON.stringify(body),
   };
   const response = await fetch(baseUrl + url, requestOptions);
-  return await handleResponse(response);
-};
+  return handleResponse(response);
+}
 
-const del = async (url: string) => {
+async function post(url: string, body: unknown) {
+  const requestOptions = {
+    method: "POST",
+    headers: await getHeaders(),
+    body: JSON.stringify(body),
+  };
+  const response = await fetch(baseUrl + url, requestOptions);
+  return handleResponse(response);
+}
+
+async function del(url: string) {
   const requestOptions = {
     method: "DELETE",
     headers: await getHeaders(),
   };
   const response = await fetch(baseUrl + url, requestOptions);
-  return await handleResponse(response);
-};
-
-const getHeaders = async () => {
-  const token = await getTokenWorkaround();
-  const headers = { "Content-type": "application/json" } as any;
-  if (token) {
-    headers.Authorization = "Bearer " + token.accessToken;
-  }
-  return headers;
-};
+  return handleResponse(response);
+}
 
 async function handleResponse(response: Response) {
   const text = await response.text();
-  // const data = text && JSON.parse(text);
   let data;
+
   try {
-    data = JSON.parse(text);
-  } catch (error) {
+    data = text ? JSON.parse(text) : null;
+  } catch {
     data = text;
   }
 
@@ -65,13 +55,20 @@ async function handleResponse(response: Response) {
   } else {
     const error = {
       status: response.status,
-      message:
-        typeof data === "string" && data.length > 0
-          ? data
-          : response.statusText,
+      message: typeof data === "string" ? data : response.statusText,
     };
     return { error };
   }
+}
+
+async function getHeaders(): Promise<Headers> {
+  const session = await auth();
+  const headers = new Headers();
+  headers.set("Content-type", "application/json");
+  if (session) {
+    headers.set("Authorization", "Bearer " + session.accessToken);
+  }
+  return headers;
 }
 
 export const fetchWrapper = {

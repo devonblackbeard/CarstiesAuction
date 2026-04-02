@@ -1,31 +1,16 @@
-import { getServerSession } from "next-auth"
-import { cookies, headers } from 'next/headers'
-import { NextApiRequest } from "next"
-import { getToken } from "next-auth/jwt"
-import { authOptions } from "../api/auth/[...nextauth]/options"
+"use server";
 
-export const getSession = async () => {
-    return await getServerSession(authOptions)
-}
+import { auth } from "@/auth";
 
-export const getCurrentUser = async () => {
-    try {
-        const session = await getSession()        
-        if(!session) return null
+export async function getCurrentUser() {
+  try {
+    const session = await auth();
 
-        return session.user
-    } catch (error) {
-        return null              
-    }
-}
+    if (!session) return null;
 
-export const getTokenWorkaround = async ()  => {
-    const req = {
-        headers: Object.fromEntries(headers() as Headers),
-        cookies: Object.fromEntries(
-            cookies().getAll().map(c => [c.name, c.value])            
-        )
-    } as NextApiRequest
-
-    return await getToken({req})
+    return session.user;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 }

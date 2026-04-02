@@ -1,15 +1,18 @@
-import EmptyFilter from '@/app/components/EmptyFilter'
-import React from 'react'
+import EmptyFilter from "@/app/components/EmptyFilter";
 
-const Page = ({searchParams} : {searchParams : { callbackUrl: string}} ) => {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ callbackUrl: string }>;
+}) {
+  const { callbackUrl } = await searchParams;
+
   return (
     <EmptyFilter
-        title='You need to be logged in to do that'
-        subtitle='Please click below to sign in'
-        showLogin
-        callbackUrl={searchParams.callbackUrl}
+      title="You need to be logged in to do that"
+      subtitle="Please click below to login"
+      showLogin
+      callbackUrl={callbackUrl}
     />
-  )
+  );
 }
-
-export default Page
