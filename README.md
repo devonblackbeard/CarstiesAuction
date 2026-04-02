@@ -33,3 +33,9 @@ This application allows sellers to post their vehicles and potential buyers can 
 ### To Run Remotely:
 
 Application hosted at : &lt;Domain coming soon&gt;
+
+
+System Diagram:
+<img width="1869" height="990" alt="AuctioneeringArchitecture" src="https://github.com/user-attachments/assets/c3f753c6-eeba-4b2e-b7c8-9b4eba34d6d7" />
+
+
