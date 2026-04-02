@@ -7,7 +7,7 @@ This application allows sellers to post their vehicles and potential buyers can 
 ### Tech Stack
 
 - Frontend: NextJS, TailwindCSS, NextAuth.js, Zustand (state management)
-- Backend: .NET 7 (Web API), Duende Idenity Server (OpenID Connect and OAuth 2.0)
+- Backend: .NET 9 (Web API), Duende Idenity Server (OpenID Connect and OAuth 2.0)
 - Database: MongoDB, PostgreSQL
 - Services/Environment: RabbitMQ, SignalR, Docker, Kubernetes
 - Gateway: YARP (yet another reverse proxy)
