@@ -39,15 +39,11 @@ var app = builder.Build();
 app.UseAuthorization();
 app.MapControllers();
 
-app.Lifetime.ApplicationStarted.Register(async () => {
-    try
-    {
-        await DbInitalizer.InitDb(app);
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e);
-    }
+app.Lifetime.ApplicationStarted.Register(async () =>
+{
+    await Policy.Handle<TimeoutException>()
+        .WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(10))
+        .ExecuteAndCaptureAsync(async () => await DbInitalizer.InitDb(app));
 });
 
 app.Run();
